@@ -19,6 +19,7 @@
   "homepage": "https://github.com/miklejones/bamazon#readme",
   "dependencies": {
     "inquirer": "^5.2.0",
-    "mysql": "^2.15.0"
+    "mysql": "^2.15.0",
+    "nodemon": "^1.17.3"
   }
 }
