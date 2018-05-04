@@ -4,9 +4,7 @@ var inquirer = require("inquirer");
 var connection = mysql.createConnection({
   host: "localhost",
   port: 3306,
-
   user: "root",
-
   password: "password",
   database: "bamazon_db"
 });
@@ -15,12 +13,11 @@ connection.connect(function (err) {
   if (err) throw err;
   console.log("connected as id " + connection.threadId + "\n")
   start();
-  connection.end();
 });
 
 function start() {
   showItems();
-  connection.query("SELECT * FROM products", function (err, results) {
+  connection.query("SELECT * FROM products", function (err, res) {
     if (err) throw err;
     inquirer.prompt([{
       name: "choice",
@@ -33,10 +30,10 @@ function start() {
     }])
       .then(function (answer) {
         var selection = answer.choice - 1;
-        if (answer.quantity > results[selection].stock_quantity) {
-          console.log('boobzzz')
+        if (answer.quantity > res[selection].stock_quantity) {
+          console.log(`Thing is we dont have that much`)
         } else {
-          let newQuantity = results[selection].stock_quantity - answer.quantity;
+          let newQuantity = res[selection].stock_quantity - answer.quantity;
           connection.query(
             "UPDATE products SET ? WHERE ?",
             [
@@ -47,24 +44,38 @@ function start() {
                 item_id: answer.choice
               }
             ],
-            function (error) {
-              if (err) throw err;
-              console.log("Order placed successfully!");
-              console.log(results[selection].stock_quantity)
-              // start();
+            function (err) {
+              console.log("\nOrder placed successfully!");
+              toContinue();
 
             }
           );
         };
-
       });
   });
 };
 
+function toContinue() {
+  inquirer.prompt([{
+    name: "continue",
+    type: "confirm",
+    message: "Do you want to buy something else?"
+  }])
+    .then(function (answer) {
+      if (!answer.continue) {
+        connection.end();
+      } else {
+        start();
+      }
+    });
+}
+
 function showItems() {
   connection.query("SELECT * FROM products", function (err, res) {
+    console.log(`\n`);
+
     for (var i = 0; i < res.length; i++) {
-      console.log(`${res[i].item_id} | ${res[i].product_name} | ${res[i].price}`);
+      console.log(`ID: ${res[i].item_id} | ${res[i].product_name} | PRICE: $${res[i].price} | QTY: ${res[i].stock_quantity}`);
     }
     console.log("-----------------------------------");
   })

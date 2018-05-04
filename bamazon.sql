@@ -14,7 +14,7 @@ CREATE TABLE products (
     
     price DECIMAL(10,2) NOT NULL,
 
-    stock_quantity INTEGER(11) 
+    stock_quantity INTEGER(11), 
 
     PRIMARY KEY (item_id)
 );
@@ -42,3 +42,5 @@ VALUES ("Wooden Duck", "Old Things", 18.45, 13);
 
 INSERT INTO products (product_name, department_name, price, stock_quantity)
 VALUES ("Boombox", "Important Stuff", 56.99, 49), ("Insurance Card", "Important Stuff", 3.49, 15), ("iPhone 3G", "Old Things", 15.33, 240);
+
+SELECT * FROM bamazon_db.products;
