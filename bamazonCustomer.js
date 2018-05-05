@@ -34,6 +34,7 @@ function start() {
           console.log(`Thing is we dont have that much`)
         } else {
           let newQuantity = res[selection].stock_quantity - answer.quantity;
+          let totalCost = res[selection].price * answer.quantity;
           connection.query(
             "UPDATE products SET ? WHERE ?",
             [
@@ -45,6 +46,7 @@ function start() {
               }
             ],
             function (err) {
+              console.log(`Your order of ${answer.quantity} ${res[selection].product_name} costs a total of $${totalCost}`);
               console.log("\nOrder placed successfully!");
               toContinue();
 
