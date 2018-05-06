@@ -79,7 +79,7 @@ function showItems() {
     console.log(`\n`);
 
     for (var i = 0; i < res.length; i++) {
-      console.log(`ID: ${res[i].item_id} | ${res[i].product_name} | PRICE: $${res[i].price} | QTY: ${res[i].stock_quantity}`);
+      console.log(`ID: ${res[i].item_id} | ${res[i].product_name} | PRICE: $${res[i].price.toFixed(2)} | QTY: ${res[i].stock_quantity}`);
     }
     console.log("-----------------------------------");
   })
