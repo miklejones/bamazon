@@ -32,9 +32,11 @@ function start() {
         var selection = answer.choice - 1;
         if (answer.quantity > res[selection].stock_quantity) {
           console.log(`Thing is we dont have that much`)
+          toContinue();
         } else {
           let newQuantity = res[selection].stock_quantity - answer.quantity;
           let totalCost = res[selection].price * answer.quantity;
+          let realPrice = totalCost.toFixed(2)
           connection.query(
             "UPDATE products SET ? WHERE ?",
             [
@@ -46,7 +48,7 @@ function start() {
               }
             ],
             function (err) {
-              console.log(`Your order of ${answer.quantity} ${res[selection].product_name} costs a total of $${totalCost}`);
+              console.log(`Your order of ${answer.quantity} ${res[selection].product_name} costs a total of $${realPrice}`);
               console.log("\nOrder placed successfully!");
               toContinue();
 
