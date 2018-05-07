@@ -4,11 +4,11 @@
 # How to use?
 bamazon is used from the command line and needs a MySQL database connected to it. Navigate to the folder containing the 'bamazonCustomer.js' file and run the program with 'node bamazonCustomer.js'.
 
-You will be introduced to a list of items to choose from with prices and quantities.
+You will be given a list of items to choose from with prices and quantities.
 
-Choose which item you would like to perchase and how much.
+Choose which item you would like to purchase and how much.
 
-You will be informed in the order can be completed with a price and message.
+You will be informed if the order can be completed with a price and message.
 
 ![alt text](images/1.PNG)
 
